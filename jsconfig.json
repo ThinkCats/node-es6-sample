@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es2013",
+        "allowSyntheticDefaultImports": true,
+        "noEmit": true,
+        "checkJs": true,
+        "jsx": "react",
+        "lib": ["node", "dom", "es2015"]
+    }
+}

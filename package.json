@@ -1,0 +1,20 @@
+{
+    "name": "nov",
+    "version": "1.0.0",
+    "description": "hi",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "node start.js"
+    },
+    "author": "..",
+    "license": "ISC",
+    "devDependencies": {
+        "babel-preset-env": "^1.7.0",
+        "babel-register": "^6.26.0"
+    },
+    "dependencies": {
+        "koa": "^2.7.0",
+        "koa-logger": "^2.0.1"
+    }
+}
