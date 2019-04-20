@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "es2013",
         "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
         "noEmit": true,
         "checkJs": true,
         "jsx": "react",
