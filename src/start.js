@@ -10,4 +10,4 @@ require("babel-register")({
 });
 
 // Import the rest of our application.
-module.exports = require('./a.js');
+module.exports = require('./app.js');
