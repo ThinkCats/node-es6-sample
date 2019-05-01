@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+//TODO 该salt敏感数据存储到db中
 const salt = 'HelloNodeJWT';
 
 export function encode(content) {

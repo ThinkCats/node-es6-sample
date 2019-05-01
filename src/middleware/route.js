@@ -1,3 +1,6 @@
+import { encode } from '../utils/jwt';
+import { createRawData } from '../utils/auth';
+
 //default router
 export async function basic(ctx, next) {
     if (ctx.body == null || ctx.body == undefined) {
@@ -10,21 +13,25 @@ export async function basic(ctx, next) {
 export async function router(ctx, next) {
     //reset body
     //ctx.body = null;
-    route('/auths', (ctx, next) => handleAuth(ctx, next));
+    let request = ctx.request;
+    let response = ctx.response;
+    route('/login', () => handleLogin(request, response));
     await next();
 
-    function route(path, route_func) {
+    function route(path, routeFunc) {
         let request = ctx.request;
         let url = request.url;
         if (path === url) {
-            route_func(ctx);
+            routeFunc(request, response);
             return;
         }
     }
 }
 
-function handleAuth(ctx) {
-    console.log('Handle Auth, CTX:', ctx);
-    ctx.body = 'Lalala';
+function handleLogin(req, resp) {
+    console.log('Req:', req.body);
+    let data = req.body;
+    let token = encode(createRawData(data));
+    resp.body = token;
 }
 
