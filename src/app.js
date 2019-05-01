@@ -1,11 +1,11 @@
 import Koa from 'koa';
-import logger from 'koa-logger';
 import { auth } from './middleware/auth';
 import { router, basic } from './middleware/route';
+import logger from './middleware/log';
 
 const app = new Koa();
 
-app.use(logger());
+app.use(logger);
 //权限
 app.use(auth);
 //路由

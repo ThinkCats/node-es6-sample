@@ -1,3 +1,4 @@
+//default router
 export async function basic(ctx, next) {
     if (ctx.body == null || ctx.body == undefined) {
         ctx.body = 'Default Page';
@@ -13,7 +14,6 @@ export async function router(ctx, next) {
     await next();
 
     function route(path, route_func) {
-        console.log('Ready Do Route...');
         let request = ctx.request;
         let url = request.url;
         if (path === url) {
