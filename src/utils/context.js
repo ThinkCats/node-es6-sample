@@ -18,3 +18,7 @@ export function isEmptyBody(req) {
 export function getBody(req) {
     return req.body;
 }
+
+export function defaultPromise(data) {
+    return new Promise(resolve => resolve(data));
+}

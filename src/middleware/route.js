@@ -8,26 +8,38 @@ export async function basic(ctx, next) {
     await next();
 }
 
-//router
-export async function router(ctx, next) {
-    //reset body
-    //ctx.body = null;
-    let request = ctx.request;
-    let response = ctx.response;
-    route('/register', () => register(request, response));
-    route('/login', () => login(request, response));
-    route('/refreshToken', () => refreshToken(request, response));
+//router, no next
+export async function router(ctx) {
+    let routeList = [
+        { path: '/register', handler: register },
+        { path: '/login', handler: login },
+        { path: '/refreshToken', handler: refreshToken },
+    ];
+    await route();
 
-    await next();
-
-    function route(path, routeFunc) {
+    function route() {
         let request = ctx.request;
-        let url = request.url;
-        if (path === url) {
-            routeFunc(request, response);
-            return;
+        let response = ctx.response;
+        let match = false;
+        let result = null;
+        routeList.forEach(item => {
+            let path = item.path;
+            let handler = item.handler;
+            let url = request.url;
+            console.log('path:', url);
+            console.log('route path:', path);
+            if (path == url) {
+                match = true;
+                result = handler(request, response);
+            }
+        });
+        if (!match) {
+            throw new Error('Unkown Path');
         }
+        return result;
     }
+
 }
+
 
 

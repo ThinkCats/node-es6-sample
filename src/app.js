@@ -3,16 +3,16 @@ import bodyParser from 'koa-bodyparser';
 import { auth } from './middleware/auth';
 import { router, basic } from './middleware/route';
 import logger from './middleware/log';
+import { error } from './middleware/error';
 
 const app = new Koa();
 
-//body parser
+app.use(error);
 app.use(bodyParser());
 app.use(logger);
-//权限
 app.use(auth);
-//路由
-app.use(router);
 app.use(basic);
+//router as last middleware
+app.use(router);
 console.log('Start Server ..');
 app.listen(3000);
