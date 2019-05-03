@@ -8,7 +8,8 @@ export const refreshToken = (req, resp) => {
     console.log('Req:', getBody(req));
     let oldToken = req.header.token;
     let data = getBody(req);
-    let isInvalidParam = (isEmpty(oldToken) || isEmpty(data) || isEmpty(data.email));
+    let isInvalidParam = (isEmpty(oldToken) || isEmpty(data)
+        || isEmpty(data.email));
     if (isInvalidParam) {
         fail(resp, 400, 'invalid request param');
         return defaultPromise();
@@ -20,7 +21,8 @@ export const refreshToken = (req, resp) => {
 
 export const register = (req, resp) => {
     let data = getBody(req);
-    let isInvalidData = (isEmpty(data) || isEmpty(data.name) || isEmpty(data.password) || isEmpty(data.email));
+    let isInvalidData = (isEmpty(data) || isEmpty(data.name)
+        || isEmpty(data.password) || isEmpty(data.email));
     if (isInvalidData) {
         fail(resp, 400, 'invalid request');
         return defaultPromise;

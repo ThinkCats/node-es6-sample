@@ -10,7 +10,6 @@ export function fail(resp, statusCode, msg) {
     resp.body = msg;
 }
 
-
 export function getBody(req) {
     return req.body;
 }
