@@ -1,7 +1,6 @@
-import { encode } from '../utils/jwt';
-import { createRawData } from '../utils/auth';
+import { login, register, refreshToken } from '../service/login';
 
-//default router
+//default 404 or 500 router
 export async function basic(ctx, next) {
     if (ctx.body == null || ctx.body == undefined) {
         ctx.body = 'Default Page';
@@ -15,7 +14,10 @@ export async function router(ctx, next) {
     //ctx.body = null;
     let request = ctx.request;
     let response = ctx.response;
-    route('/login', () => handleLogin(request, response));
+    route('/register', () => register(request, response));
+    route('/login', () => login(request, response));
+    route('/refreshToken', () => refreshToken(request, response));
+
     await next();
 
     function route(path, routeFunc) {
@@ -28,10 +30,4 @@ export async function router(ctx, next) {
     }
 }
 
-function handleLogin(req, resp) {
-    console.log('Req:', req.body);
-    let data = req.body;
-    let token = encode(createRawData(data));
-    resp.body = token;
-}
 

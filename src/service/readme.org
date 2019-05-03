@@ -1,0 +1,16 @@
+* Description
+some api and service ..
+
+* Rest Api
+
+| api           | param    | description         | type   |
+| /register     |          | register a user     | POST   |
+|               | name     | user name           | body   |
+|               | password | password            | body   |
+|               | email    | email               | body   |
+| /refreshToken |          | reresh a token      | POST   |
+|               | token    | old token in header | header |
+|               | name     | user name           | body   |
+| /login        |          | login               | POST   |
+|               | email    | email               | body   |
+|               | password | password            | body   |

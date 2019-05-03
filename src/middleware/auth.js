@@ -1,4 +1,4 @@
-import { isEmpty } from '../utils/strings';
+import { isEmpty } from '../utils/collection';
 import { decode } from '../utils/jwt';
 import { parseRawData } from '../utils/auth';
 
