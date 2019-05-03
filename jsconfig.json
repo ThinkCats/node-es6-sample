@@ -1,11 +1,19 @@
 {
+    "exclude": [
+        "package.json",
+        "node_modules"
+    ],
     "compilerOptions": {
-        "target": "es2013",
-        "allowSyntheticDefaultImports": true,
-        "noImplicitAny": false,
-        "noEmit": true,
-        "checkJs": true,
+        "lib": [
+            "node",
+            "dom",
+            "es2015"
+        ],
         "jsx": "react",
-        "lib": ["node", "dom", "es2015"]
+        "checkJs": true,
+        "noEmit": true,
+        "noImplicitAny": false,
+        "allowSyntheticDefaultImports": true,
+        "target": "es2013"
     }
 }

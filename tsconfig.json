@@ -1,9 +1,12 @@
 {
-    "compilerOptions": {
-        "noImplicitAny": false
-    },
-    "include":[
+    "exclude": [
+        "package.json",
+        "node_modules"
+    ],
+    "include": [
         "./src/**/*"
     ],
-    "exclude":[]
+    "compilerOptions": {
+        "noImplicitAny": false
+    }
 }
