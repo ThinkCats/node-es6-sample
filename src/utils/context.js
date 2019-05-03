@@ -10,10 +10,6 @@ export function fail(resp, statusCode, msg) {
     resp.body = msg;
 }
 
-export function isEmptyBody(req) {
-    let data = getBody(req);
-    return isEmpty(data) || Object.keys(data).length == 0;
-}
 
 export function getBody(req) {
     return req.body;

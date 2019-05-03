@@ -6,5 +6,7 @@ export function isNull(obj) {
 }
 
 export function isEmpty(str) {
-    return (isNull(str) || str.length == 0);
+    return (isNull(str)
+        || str.length == 0
+        || Object.keys(str).length == 0);
 }
