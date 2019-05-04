@@ -16,7 +16,8 @@
     "author": "..",
     "scripts": {
         "dev": "nodemon src/start.js",
-        "test": "node test/app.js"
+        "test": "node test/app.js",
+        "init": "node test/init.js"
     },
     "main": "index.js",
     "description": "hi",

@@ -7,7 +7,8 @@ import { error } from './middleware/error';
 
 const app = new Koa();
 
-app.use(error);
+//TODO enable error middleware
+//app.use(error);
 app.use(bodyParser());
 app.use(logger);
 app.use(auth);

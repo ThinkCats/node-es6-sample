@@ -18,3 +18,13 @@ Config.init({
 }, option);
 
 export default Config;
+
+export function findByCode(code) {
+    return new Promise(resolve => {
+        Config.findOne({
+            where: { code: code }
+        }).then(result => {
+            resolve(result.dataValues);
+        });
+    });
+}

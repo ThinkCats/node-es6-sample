@@ -10,7 +10,7 @@ some api and service ..
 |               | email    | email               | body   |
 | /refreshToken |          | reresh a token      | POST   |
 |               | token    | old token in header | header |
-|               | name     | user name           | body   |
+|               | email    | user email          | body   |
 | /login        |          | login               | POST   |
 |               | email    | email               | body   |
 |               | password | password            | body   |
