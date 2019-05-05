@@ -1,8 +1,7 @@
-import { encode } from '../utils/jwt';
-import { createRawData } from '../utils/auth';
+import { createRawData, parseRawData, encode, decode } from '../utils/auth';
 import { isEmpty } from '../utils/collection';
 import { success, fail, getBody, defaultPromise } from '../utils/context';
-import User from '../repository/user';
+import User, { findUserByEmail, createUser } from '../repository/user';
 
 export const refreshToken = async (req, resp) => {
     console.log('Req:', getBody(req));
@@ -11,15 +10,20 @@ export const refreshToken = async (req, resp) => {
     let isInvalidParam = (isEmpty(oldToken) || isEmpty(data)
         || isEmpty(data.email));
     if (isInvalidParam) {
-        fail(resp, 400, 'invalid request param');
-        return defaultPromise();
+        throw new Error('Invalid Request Param');
     }
-    let token = encode(await createRawData(data));
+    let oldRawData = await decode(oldToken);
+    let oldTokenClz = await parseRawData(oldRawData);
+    let email = oldTokenClz.email;
+    if (data.email != email) {
+        throw new Error('Please Dont Use the Token of Other People');
+    }
+    let token = await encode(await createRawData(data));
     success(resp, token);
     return defaultPromise();
 };
 
-export const register = (req, resp) => {
+export const register = async (req, resp) => {
     let data = getBody(req);
     let isInvalidData = (isEmpty(data) || isEmpty(data.name)
         || isEmpty(data.password) || isEmpty(data.email));
@@ -28,34 +32,42 @@ export const register = (req, resp) => {
         return defaultPromise;
     }
     let email = data.email;
+    //check user
+    let user = await findUserByEmail(email);
+    if (!isEmpty(user)) {
+        throw new Error('email has registed');
+    }
+    //register
+    //TODO password encode
+    let result = createUser(data.name, data.password, email);
+    success(resp, 'register success');
     return new Promise(async (resolve) => {
-        //check user
-        let user = await User.findAll({
-            where: { email: email }
-        });
-        if (!isEmpty(user)) {
-            throw new Error('email has registed');
-        }
-        //register
-        //TODO password encode
-
-        let result = await User.create({
-            name: data.name,
-            password: data.password,
-            email: email
-        });
-        success(resp, 'register success');
         resolve(result);
     });
 };
 
-export const login = (req, resp) => {
+export const login = async (req, resp) => {
     console.log('/login :', getBody(req));
-    let body = getBody(req);
-    if (isEmpty(body)) {
+    let data = getBody(req);
+    if (isEmpty(data)) {
         fail(resp, 400, 'invalid request data');
         return defaultPromise();
     }
-    //TODO
+    let email = data.email;
+    let password = data.password;
+    if (isEmpty(email) || isEmpty(password)) {
+        throw new Error('Invalid Param');
+    }
+    let user = await findUserByEmail(email);
+    if (isEmpty(user)) {
+        throw new Error('User not found, please register');
+    }
+    let userPassword = user.password;
+    //if encode password, should update this equal
+    if (password != userPassword) {
+        throw new Error('Password is not correct');
+    }
+    let token = await encode(await createRawData(data));
+    success(resp, token);
     return defaultPromise();
 };

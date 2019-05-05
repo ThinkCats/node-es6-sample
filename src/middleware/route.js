@@ -8,12 +8,15 @@ export async function basic(ctx, next) {
     await next();
 }
 
+function doNothing() { }
+
 //router, no next
-export async function router(ctx) {
+export async function router(ctx, next) {
     let routeList = [
         { path: '/register', handler: register },
         { path: '/login', handler: login },
         { path: '/refreshToken', handler: refreshToken },
+        { path: '/auth', handler: doNothing }
     ];
     await route();
 
@@ -26,8 +29,6 @@ export async function router(ctx) {
             let path = item.path;
             let handler = item.handler;
             let url = request.url;
-            console.log('path:', url);
-            console.log('route path:', path);
             if (path == url) {
                 match = true;
                 result = handler(request, response);
@@ -38,7 +39,6 @@ export async function router(ctx) {
         }
         return result;
     }
-
 }
 
 

@@ -1,30 +1,33 @@
 import jwt from 'jsonwebtoken';
-import Config, { findByCode } from '../repository/config';
-import { config } from './constant';
+import { findByCode } from '../repository/config';
+import { config, Token } from './constant';
 
-//创建原始的密钥格式
+//创建原始的Token格式
 export function createRawData(rawObj) {
     let email = rawObj.email;
-    let pwd = rawObj.password;
+    let currentTime = (new Date()).getTime();
     return new Promise(async resolve => {
         let result = await findByCode(config.tokenRawSeperator);
-        console.log('result:', result);
+        let tokenTimeResult = await findByCode(config.tokenTime);
         let seperator = result.value;
-        let rawData = email + seperator + pwd;
+        let tokenTime = tokenTimeResult.value;
+        let rawData = email + seperator
+            + currentTime + seperator + tokenTime;
         resolve(rawData);
     });
 }
 
-//从原始的格式中解析出具体的内容项
+//从原始的Token格式中解析出具体的内容项
 export function parseRawData(rawString) {
     return new Promise(async resolve => {
         let seperatorConfig = await findByCode(config.tokenRawSeperator);
         let seperator = seperatorConfig.value;
         let array = rawString.split(seperator);
-        let keyObj = {};
-        keyObj['email'] = array[0];
-        keyObj['password'] = array[1];
-        resolve(keyObj);
+        let email = array[0];
+        let createTime = array[1];
+        let validDate = array[2];
+        let token = new Token(email, createTime, validDate);
+        resolve(token);
     });
 }
 

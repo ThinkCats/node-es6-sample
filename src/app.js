@@ -8,12 +8,13 @@ import { error } from './middleware/error';
 const app = new Koa();
 
 //TODO enable error middleware
-//app.use(error);
+app.use(error);
 app.use(bodyParser());
 app.use(logger);
 app.use(auth);
 app.use(basic);
 //router as last middleware
 app.use(router);
-console.log('Start Server ..');
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('Start Server ..');
+});
