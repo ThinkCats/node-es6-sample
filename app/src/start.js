@@ -1,9 +1,9 @@
 // start js, not es6
-require("babel-register")({
+require('babel-register')({
     presets: [
-        ["env", {
-            "targets": {
-                "node": true
+        ['env', {
+            'targets': {
+                'node': true
             }
         }]
     ]
