@@ -1,40 +1,18 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { observer } from 'mobx-react';
-import countStore from '../store/Count';
-import Button from 'antd/lib/button';
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Index from '../component/torrents/Index';
+import Login from '../component/login/Login';
 
 const route = () => (
-  <Router>
+  <BrowserRouter>
     <Route path="/" exact component={Index} />
+    <Route path="/login" component={Login}/>
     <Route path="/about/" component={About} />
     <Route path="/users/" component={Users} />
-  </Router>
+  </BrowserRouter>
 );
 
 export default route;
-
-@observer
-class Index extends Component {
-  incre = () => {
-    countStore.incre();
-  }
-
-  decre = () => {
-    countStore.decre();
-  }
-  render() {
-    console.log('Store:', countStore);
-    return (
-      <div>
-        <h2>Home</h2>
-        <h2>{countStore.count}</h2>
-        <Button onClick={this.incre}>Add</Button>
-        <Button onClick={this.decre}>Decre</Button>
-      </div>
-    );
-  }
-}
 
 function About() {
   return <h2>About</h2>;
