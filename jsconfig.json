@@ -14,6 +14,7 @@
         "noEmit": true,
         "noImplicitAny": false,
         "allowSyntheticDefaultImports": true,
-        "target": "es2013"
+        "target": "es2013",
+        "experimentalDecorators":true
     }
 }

@@ -3,10 +3,8 @@
         "package.json",
         "node_modules"
     ],
-    "include": [
-        "./src/**/*"
-    ],
     "compilerOptions": {
-        "noImplicitAny": false
+        "experimentalDecorators": true,
+        "allowJs": true
     }
 }
