@@ -4,6 +4,7 @@
         "node_modules"
     ],
     "compilerOptions": {
+        "noImplicitAny": true,
         "experimentalDecorators": true,
         "allowJs": true
     }
